@@ -1,0 +1,25 @@
+# KomRoom
+
+using FastAPI and postgresql.
+
+Its optional to run the server virtual enviroment.
+
+## Step 1 : install requirement
+
+```terminal
+pip install -r requirements.txt
+```
+
+## Step 2 : settings up the database
+
+Check the database.py file and configure yourself. Either use MySql or Postgresql
+
+```python
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres@localhost:5432/komroom"
+```
+
+## Step 3 : Run the server
+
+```terminal
+uvicorn main:app --reload
+```
