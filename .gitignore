@@ -8,5 +8,6 @@
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
+__pycache__
 .venv
 pip-selfcheck.json
