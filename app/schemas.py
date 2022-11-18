@@ -1,4 +1,5 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, constr
+from datetime import datetime
 
 
 class CommentBase(BaseModel):
@@ -37,20 +38,26 @@ class Post(PostBase):
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    email: str
-
-
-class UserCreate(UserBase):
+class UserBaseSchema(BaseModel):
     id: str
     name: str
-    email: str
-    password: str
-
-
-class User(UserBase):
-    id: str
-    name: str
+    email: EmailStr
 
     class Config:
         orm_mode = True
+
+
+class CreateUserSchema(UserBaseSchema):
+    password: constr(min_length=8)
+    passwordConfirm: str
+
+
+class LoginUserSchema(BaseModel):
+    email: EmailStr
+    password: constr(min_length=8)
+
+
+class UserResponse(UserBaseSchema):
+    id: str
+    email: EmailStr
+    name: str

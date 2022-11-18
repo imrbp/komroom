@@ -1,6 +1,6 @@
-from sqlalchemy import DateTime, Column, ForeignKey, Integer, String
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, text
 from sqlalchemy.orm import relationship
-from database import Base
+from .database import Base
 
 
 class User(Base):
@@ -22,7 +22,9 @@ class Post(Base):
     content = Column(String)
     upvote = Column(Integer)
     downvote = Column(Integer)
-    created_at = Column(DateTime(timezone=True))
+    created_at = Column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+    )
 
     author = relationship("User", back_populates="post")
     comments = relationship("Comment", back_populates="main_post")
