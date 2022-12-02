@@ -1,18 +1,26 @@
-# KomRoom
+# Komroom
 
-Its optional to run the server virtual enviroment.
+## Step 1
 
-## Step 1 : install requirement
+remote this repo
 
 ```terminal
-pip install -r requirements.txt
+git clone
 ```
 
-## Step 2 : settings up the database
+## Step 2
 
-Check the .env file and configure yourself. Either use MySql or Postgresql
+make virtual enviroment
 
-```.env
+```terminal
+python -m venv .env
+```
+
+## Step 3
+
+Configure .env file
+
+```env
 DATABASE_PORT=5432
 POSTGRES_PASSWORD=
 POSTGRES_USER=postgres
@@ -21,20 +29,23 @@ POSTGRES_HOST=postgres
 POSTGRES_HOSTNAME=127.0.0.1
 ```
 
-You can setup another settings in .env file
+## Step 4
 
-## Step 3 : Run the server
+run the envirotment first and then run the server using ``uvicorn``. In here I'm using linux to run the enviroment
 
 ```terminal
+source env/bin/activate
 uvicorn app.main:app --host localhost --port 8000 --reload
+
 ```
 
-### Fatures Update
+## Step 5
 
-- JWT user token authentication
+### Alembic Command
 
-### ToDo
+Below are some important Alembic commands you should know:
 
-- CRUD Post
-- CRUD Topics
-- CRUD Comment
+- init – prepares the project to work with alembic
+- upgrade – upgrade the database to a later version
+- downgrade – revert to a previous version
+- revision – creates a new revision file

@@ -102,7 +102,7 @@ def login(
         ACCESS_TOKEN_EXPIRES_IN * 60,
         "/",
         None,
-        False,
+        True,
         True,
         "lax",
     )
@@ -113,7 +113,7 @@ def login(
         REFRESH_TOKEN_EXPIRES_IN * 60,
         "/",
         None,
-        False,
+        True,
         True,
         "lax",
     )
@@ -124,7 +124,7 @@ def login(
         ACCESS_TOKEN_EXPIRES_IN * 60,
         "/",
         None,
-        False,
+        True,
         False,
         "lax",
     )

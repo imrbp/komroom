@@ -1,4 +1,4 @@
-from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, text
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, text, Table
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -14,6 +14,20 @@ class User(Base):
     post = relationship("Post", back_populates="author")
 
 
+class Tag(Base):
+    __tablename__ = "tags"
+    id = Column(Integer, primary_key=True, nullable=False)
+    value = Column(String)
+
+
+Tags_map = Table(
+    "association_table",
+    Base.metadata,
+    Column("post_id", ForeignKey("posts.id")),
+    Column("tag_id", ForeignKey("tags.id")),
+)
+
+
 class Post(Base):
     __tablename__ = "posts"
 
@@ -25,9 +39,13 @@ class Post(Base):
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
+    updated_at = Column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+    )
 
     author = relationship("User", back_populates="post")
     comments = relationship("Comment", back_populates="main_post")
+    tags = relationship("Tag", secondary=Tags_map)
 
 
 class Comment(Base):
@@ -38,17 +56,3 @@ class Comment(Base):
     content = Column(String)
 
     main_post = relationship("Post", back_populates="comments")
-
-
-# class Tag(Base):
-#     __tablename__ = "tags"
-#     id = Column(Integer, primary_key=True)
-#     title = Column(String)
-
-#     tag = relationship()
-
-
-# class TagMap(Base):
-#     __tablename__ = "tagsmap"
-#     post_id = Column(Integer, ForeignKey("posts.id"))
-#     tag_id = Column(Integer, ForeignKey("tags.id"))
